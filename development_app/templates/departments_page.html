@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Departments
+{% endblock %}
+
+{% block content_title %}
+<p>
+    All your departments
+
+</p>
+{% endblock %}
+
+
+{% block content %}
+    {% for dep in deps%}
+        <p>
+            <a href="{{url_for('departments.department_detail', slug=dep.slug)}}">
+                {{dep.name}}
+            </a>
+        </p>
+    {% endfor %}
+{% endblock %}
