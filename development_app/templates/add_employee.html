@@ -1,0 +1,24 @@
+{% extends "index.html"%}
+
+{% block content_title %}
+    Add new employee to {{dep.name}}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="col-md-4">
+    <form action="{{url_for('add_employee', slug=dep.slug)}}" method="POST">
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label() }}
+                {{ field(class='form-control') }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-success">
+            Add
+        </button>
+    </form>
+</div>
+
+{% endblock %}

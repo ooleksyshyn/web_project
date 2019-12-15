@@ -20,15 +20,15 @@
             <a class="nav-link" href="{{url_for('employees')}}">Employees <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="lol">Kek <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{url_for('create_department')}}">Create new department <span class="sr-only">(current)</span></a>
           </li>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="hello">Cheburek <span class="sr-only">(current)</span></a>
-          </li>
+            {% block extra_references %}
+            {% endblock %}
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" method="GET">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search"
+                 aria-label="Search" name="q" value="{{ request.args.get('q', '') }}">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
