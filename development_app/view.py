@@ -1,5 +1,5 @@
 from flask import render_template
-from development_app.app import app
+from development_app.app import app, db
 import development_app.models as md
 
 
@@ -21,12 +21,20 @@ def departments():
 
 @app.route("/dep/<slug>")
 def department_detail(slug):
-    department = md.Department.query.filter(md.Department.slug == slug).first()
-    empls = md.Employee.query.filter(md.Employee.department == department.name).all()
-    return render_template("employees.html", dep=department.name, employees=empls, len=len(empls))
+    empls = (db.session.query(md.Employee, md.Department)).join(md.Employee,
+                                                                md.Employee.department_id == md.Department.id)\
+                                                            .filter(md.Department.slug == slug).all()
+
+    if len(empls) > 0:
+        department = empls[0][1]
+    else:
+        department = md.Department.query.filter(md.Department.slug == slug)
+    return render_template("employees.html", department=department, employees=empls, len=len(empls))
 
 
 @app.route("/employees")
 def employees():
-    empls = md.Employee.query.all()
+    empls = (db.session.query(md.Employee, md.Department))\
+        .join(md.Employee, md.Employee.department_id == md.Department.id).all()
+
     return render_template("employees.html", dep="all departments", employees=empls, len=len(empls))

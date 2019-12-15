@@ -21,15 +21,15 @@
         {% for i in range(len) %}
             <tr>
               <th scope="row">{{i + 1}}</th>
-              <td>{{employees[i].name}}</td>
-              <td>{{employees[i].surname}}</td>
+              <td>{{employees[i][0].name}}</td>
+              <td>{{employees[i][0].surname}}</td>
               <td>
-                  <a href="{{url_for('department_detail', slug=employees[i].department)}}">
-                      {{employees[i].department}}
+                  <a href="{{url_for('department_detail', slug=employees[i][1].slug)}}">
+                      {{employees[i][1].name}}
                   </a>
 
               </td>
-              <td>{{employees[i].slug}}</td>
+              <td>{{employees[i][0].slug}}</td>
             </tr>
         {% endfor %}
   </tbody>
