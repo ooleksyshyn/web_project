@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    Departments
+{% endblock %}
+
+{% block content_title %}
+<p class = "all-departments">
+    All your departments
+</p>
+{% endblock %}
+
+{% block content %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Slug</th>
+        </tr>
+      </thead>
+        <tbody>
+        {% for i in range(len) %}
+            <tr>
+              <th scope="row">{{i + 1}}</th>
+              <td>
+                  <a href="{{url_for('department_detail', slug=deps[i].slug)}}">
+                    {{deps[i].name}}
+                  </a>
+              </td>
+              <td>{{deps[i].slug}}</td>
+            </tr>
+        {% endfor %}
+  </tbody>
+    </table>
+{% endblock %}
