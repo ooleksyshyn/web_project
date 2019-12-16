@@ -72,7 +72,7 @@ def add_employee(slug):
 
     if request.method == "POST":
         name = request.form["name"]
-        surname = request.form["name"]
+        surname = request.form["surname"]
         department_id = md.Department.query.filter(md.Department.slug == slug).first().id
         print(name, surname, department_id)
 
