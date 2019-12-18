@@ -1,24 +1,28 @@
 {% extends "index.html"%}
 
 {% block content_title %}
-    Add new employee to {{dep.name}}
+<div class="container">
+    <h1>
+        Add new employee to {{dep.name}}
+    </h1>
+</div>
 {% endblock %}
 
 
 {% block content %}
-
-<div class="col-md-4">
-    <form action="{{url_for('add_employee', slug=dep.slug)}}" method="POST">
-        {% for field in form %}
-            <div class="form-group">
-                {{ field.label() }}
-                {{ field(class='form-control') }}
-            </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-success">
-            Add
-        </button>
-    </form>
+<div class="container">
+    <div class="col-md-4">
+        <form action="{{url_for('add_employee', slug=dep.slug)}}" method="POST">
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label() }}
+                    {{ field(class='form-control') }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success">
+                Add
+            </button>
+        </form>
+    </div>
 </div>
-
 {% endblock %}

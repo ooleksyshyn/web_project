@@ -5,12 +5,17 @@
 {% endblock %}
 
 {% block content_title %}
-<p class = "all-departments">
-    All your departments
-</p>
+<div class="container">
+    <h1>
+        <p class = "all-departments">
+            All your departments
+        </p>
+    </h1>
+</div>
 {% endblock %}
 
 {% block content %}
+<div class="container">
     <table class="table">
       <thead>
         <tr>
@@ -33,4 +38,5 @@
         {% endfor %}
   </tbody>
     </table>
+</div>
 {% endblock %}

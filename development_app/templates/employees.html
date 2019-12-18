@@ -15,16 +15,23 @@
 {% endblock %}
 
 {% block content_title %}
+<div class="container">
     <div class = "department">
         {% if all %}
-            Employees of {{dep}}
+            <h1>
+                Employees of {{dep}}
+            </h1>
         {% else %}
-            Employees of {{dep.name}}
+            <h1>
+                Employees of {{dep.name}}
+            </h1>
         {% endif %}
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
+<div class="container">
     <table class="table">
       <thead>
         <tr>
@@ -52,4 +59,5 @@
         {% endfor %}
   </tbody>
     </table>
+</div>
 {% endblock %}
