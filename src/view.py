@@ -1,6 +1,6 @@
-from development_app.app import app, db
-import development_app.models as md
-from development_app.forms import DepartmentForm, EmployeeForm
+from src.app import app, db
+import src.models as md
+from src.forms import DepartmentForm, EmployeeForm
 
 from flask import render_template, request
 from flask import url_for, redirect
@@ -43,7 +43,7 @@ def search_decorator(f):
 @app.route("/")
 @search_decorator
 def index():
-    return render_template("index.html")
+    return render_template("title.html")
 
 
 @app.route("/create_department", methods=["POST", "GET"])

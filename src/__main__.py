@@ -1,5 +1,5 @@
-from development_app.app import app
-import development_app.view
+from src.app import app
+import src.view
 
 
 if __name__ == "__main__":

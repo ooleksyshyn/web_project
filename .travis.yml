@@ -15,4 +15,4 @@ before_install:
   - mysql testdb < mysql/main_db_bootstrap.sql
 
 script:
-  - python -m unittest discover tests/
+  - python -m unittest discover tests/test_*

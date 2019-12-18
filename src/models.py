@@ -1,4 +1,4 @@
-from development_app.app import db
+from src.app import db
 import re
 
 
