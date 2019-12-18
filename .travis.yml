@@ -12,7 +12,7 @@ install:
 
 before_install:
   - mysql -e 'CREATE DATABASE `testdb`;'
-  - mysql testdb < mysql/main_db_bootstrap.py
+  - mysql testdb < mysql/main_db_bootstrap.sql
 
 script:
   - python -m unittest discover tests/
