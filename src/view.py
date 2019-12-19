@@ -60,7 +60,6 @@ def search_employees():
 @app.route("/create_department", methods=["POST", "GET"])
 @search_decorator
 def create_department():
-    print("WTF???")
 
     if request.method == "POST":
         name = request.form["name"]
@@ -185,3 +184,19 @@ def employee_detail(slug):
     employee = md.Employee.query.filter(md.Employee.slug == slug).first()
 
     return render_template("employee.html", employee=employee)
+
+
+@app.route("/delete_department/<slug>", methods=["POST"])
+def delete_department(slug):
+    md.Department.query.filter(md.Department.slug == slug).delete()
+
+    db.session.commit()
+    return redirect(url_for("departments"))
+
+
+@app.route("/delete_employee/<slug>", methods=["POST"])
+def delete_employee(slug):
+    md.Employee.query.filter(md.Employee.slug == slug).delete()
+
+    db.session.commit()
+    return redirect(url_for("employees"))
