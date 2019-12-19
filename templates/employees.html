@@ -5,7 +5,15 @@
     {% if not all %}
         <li class="nav-item active">
             <a class="nav-link" href="{{url_for('add_employee', slug = dep.slug)}}">
-                Add employees to {{dep.name}}
+                Add employees
+                <span class="sr-only">
+                    (current)
+                </span>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('edit_department', slug = dep.slug)}}">
+                Edit
                 <span class="sr-only">
                     (current)
                 </span>
@@ -71,9 +79,11 @@
         {% endfor %}
   </tbody>
     </table>
+    <div class="container">
     {% if not all %}
         Average salary: {{average_salary}}
     {% endif %}
+    </div>
 </div>
 
 <div class="container">

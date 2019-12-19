@@ -8,8 +8,6 @@ if __name__ == "__main__":
 
 # TODO: add EDIT and DELETE functions for departments and employees
 
-# TODO: add search for employees with certain birth date, and range of birth dates
-
 # TODO: write documentation
 
 # TODO: write tests

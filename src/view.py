@@ -60,6 +60,7 @@ def search_employees():
 @app.route("/create_department", methods=["POST", "GET"])
 @search_decorator
 def create_department():
+    print("WTF???")
 
     if request.method == "POST":
         name = request.form["name"]
@@ -75,6 +76,24 @@ def create_department():
 
     form = DepartmentForm()
     return render_template("create_department.html", form=form)
+
+
+@app.route("/edit_department/<slug>", methods=["POST", "GET"])
+@search_decorator
+def edit_department(slug):
+    department = md.Department.query.filter(md.Department.slug == slug).first()
+    print(department.name, slug)
+    if request.method == "POST":
+        form = DepartmentForm(formdata=request.form, onj=department)
+        form.populate_obj(department)
+
+        db.session.commit()
+
+        return redirect(url_for("departments"))
+
+    form = DepartmentForm(obj=department)
+
+    return render_template("edit_department.html", form=form, department=department)
 
 
 @app.route("/add_employee/<slug>", methods=["POST", "GET"])
@@ -108,10 +127,8 @@ def add_employee(slug):
 @search_decorator
 def departments():
     deps = md.Department.query.all()
-    salaries = db.session.query(md.Department, func.avg(md.Employee.salary)).join(md.Department.employees).group_by(
-        md.Department.id).all()
 
-    return render_template("departments.html", deps=deps, len=len(deps), salaries=salaries)
+    return render_template("departments.html", deps=deps, len=len(deps))
 
 
 @app.route("/dep/<slug>")
