@@ -39,25 +39,40 @@
           <th scope="col">Name</th>
           <th scope="col">Surname</th>
           <th scope="col">Department</th>
-          <th scope="col">Slug</th>
+          <th scope="col">Salary</th>
+          <th scope="col">Date of birth</th>
+
         </tr>
       </thead>
         <tbody>
         {% for i in range(len) %}
             <tr>
               <th scope="row">{{i + 1}}</th>
-              <td>{{employees[i][0].name}}</td>
-              <td>{{employees[i][0].surname}}</td>
+                  <td>
+                      <a href="{{url_for('employee_detail', slug=employees[i][0].slug)}}">
+                          {{employees[i][0].name}}
+                      </a>
+                  </td>
+                  <td>
+                      <a href="{{url_for('employee_detail', slug=employees[i][0].slug)}}">
+                        {{employees[i][0].surname}}
+                      </a>
+                  </td>
+
               <td>
                   <a href="{{url_for('department_detail', slug=employees[i][1].slug)}}">
                       {{employees[i][1].name}}
                   </a>
 
               </td>
-              <td>{{employees[i][0].slug}}</td>
+              <td>{{employees[i][0].salary}}</td>
+              <td>{{employees[i][0].birth_date}}</td>
             </tr>
         {% endfor %}
   </tbody>
     </table>
+    {% if not all %}
+        Average salary: {{average_salary}}
+    {% endif %}
 </div>
 {% endblock %}

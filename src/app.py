@@ -7,7 +7,7 @@ from flask_script import Manager
 class Configuration:
     DEBUG = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://oleksii:1@localhost/test1"
+    SQLALCHEMY_DATABASE_URI = "mysql+mysqlconnector://oleksii:1@localhost/testdb"
 
 
 app = Flask(__name__, template_folder="../templates")

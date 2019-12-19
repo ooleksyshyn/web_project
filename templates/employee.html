@@ -1,0 +1,10 @@
+{% extends "index.html" %}
+
+{% block content_title %}
+{{employee.name}} {{employee.surname}}
+{% endblock %}
+
+
+{% block content %}
+Was born on {{employee.birth_date}}, earns {{employee.salary}}.
+{% endblock %}
