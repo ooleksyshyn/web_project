@@ -34,7 +34,7 @@ class DataBaseTest(unittest.TestCase):
             Department.query.filter(Department.id == -3).first().name, "Test department 3"
         )
 
-        employee1 = Employee(name="Employee 1", surname="Test", department_id=-1, salary=5000, birth_date="2000-01-01", id=-1)
+        employee1 = Employee(name="Employee 1", surname="Test", department_id=-1, salary=5000, birth_date="2000-01-01")
         employee2 = Employee(name="Employee 2", surname="Test", department_id=-1, salary=7000, birth_date="2000-02-04")
         employee3 = Employee(name="Employee 3", surname="Test", department_id=-2, salary=8000, birth_date="2001-02-04")
         employee4 = Employee(name="Employee 4", surname="Test", department_id=-3, salary=7500, birth_date="1999-12-04")
