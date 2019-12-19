@@ -10,3 +10,8 @@ class EmployeeForm(Form):
     surname = StringField("Surname")
     salary = IntegerField("Salary")
     birth_date = DateField("Date of birth")
+
+
+class SearchForm(Form):
+    first_date = DateField("Beginning of period")
+    last_date = DateField("End of period")

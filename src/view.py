@@ -1,6 +1,6 @@
 from src.app import app, db
 import src.models as md
-from src.forms import DepartmentForm, EmployeeForm
+from src.forms import DepartmentForm, EmployeeForm, SearchForm
 
 from flask import render_template, request
 from flask import url_for, redirect
@@ -14,17 +14,17 @@ def search_decorator(f):
     def search():
         q = request.args.get('q', '')
         if q:
-            deps = md.Department.query.filter(md.Department.name.contains(q) |
+            deps = md.Department.query.filter(md.Department.name.contains(q) or
                                               md.Department.slug.contains(q)).all()
             if len(deps):
                 return render_template("departments.html", deps=deps, len=len(deps))
             else:
                 empls = (db.session.query(md.Employee, md.Department)).join(
-                    md.Department.employees).filter(md.Employee.name.contains(q) |
+                    md.Department.employees).filter(md.Employee.name.contains(q) or
                                                     md.Employee.surname.contains(q)).all()
                 if len(empls):
-                    return render_template("employees.html", dep="all departments", employees=empls,
-                                           len=len(empls), all=True)
+                    return render_template("employees.html", dep="all departments (searched)", employees=empls,
+                                           len=len(empls), all=True, form=SearchForm())
         return None
 
     @wraps(f)
@@ -43,6 +43,18 @@ def search_decorator(f):
 @search_decorator
 def index():
     return render_template("index.html")
+
+
+@app.route("/search_results", methods=["POST"])
+def search_employees():
+    first_date = request.form["first_date"]
+    last_date = request.form["last_date"]
+
+    empls = db.session.query(md.Employee, md.Department).join(md.Department.employees).filter(
+        last_date >= func.date(md.Employee.birth_date), md.Employee.birth_date >= first_date).all()
+
+    return render_template("employees.html", dep="all departments (searched)", employees=empls,
+                           len=len(empls), all=True, form=SearchForm())
 
 
 @app.route("/create_department", methods=["POST", "GET"])
@@ -120,7 +132,7 @@ def department_detail(slug):
     else:
         department = md.Department.query.filter(md.Department.slug == slug).first()
     return render_template("employees.html", dep=department, employees=empls.all(),
-                           len=len(empls.all()), all=False, average_salary=average_salary)
+                           len=len(empls.all()), all=False, average_salary=average_salary, form=SearchForm())
 
 
 @app.route("/employees")
@@ -129,7 +141,8 @@ def employees():
 
     empls = (db.session.query(md.Employee, md.Department)).join(md.Department.employees).all()
 
-    return render_template("employees.html", dep="all departments", employees=empls, len=len(empls), all=True)
+    return render_template("employees.html", dep="all departments", employees=empls, len=len(empls),
+                           all=True, form=SearchForm())
 
 
 @app.route("/employee/<slug>")

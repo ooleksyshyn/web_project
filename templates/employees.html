@@ -75,4 +75,20 @@
         Average salary: {{average_salary}}
     {% endif %}
 </div>
+
+<div class="container">
+    <div class="col-md-4">
+        <form action="{{url_for('search_employees')}}" method="POST">
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label() }}
+                    {{ field(class='form-control') }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success">
+                Search
+            </button>
+        </form>
+    </div>
+</div>
 {% endblock %}
