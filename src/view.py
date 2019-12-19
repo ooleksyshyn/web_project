@@ -14,13 +14,13 @@ def search_decorator(f):
     def search():
         q = request.args.get('q', '')
         if q:
-            deps = md.Department.query.filter(md.Department.name.contains(q) or
+            deps = md.Department.query.filter(md.Department.name.contains(q) |
                                               md.Department.slug.contains(q)).all()
             if len(deps):
                 return render_template("departments.html", deps=deps, len=len(deps))
             else:
                 empls = (db.session.query(md.Employee, md.Department)).join(
-                    md.Department.employees).filter(md.Employee.name.contains(q) or
+                    md.Department.employees).filter(md.Employee.name.contains(q) |
                                                     md.Employee.surname.contains(q)).all()
                 if len(empls):
                     return render_template("employees.html", dep="all departments (searched)", employees=empls,
@@ -82,7 +82,7 @@ def create_department():
 @search_decorator
 def edit_department(slug):
     department = md.Department.query.filter(md.Department.slug == slug).first()
-    print(department.name, slug)
+
     if request.method == "POST":
         form = DepartmentForm(formdata=request.form, onj=department)
         form.populate_obj(department)
@@ -94,6 +94,23 @@ def edit_department(slug):
     form = DepartmentForm(obj=department)
 
     return render_template("edit_department.html", form=form, department=department)
+
+
+@app.route("/edit_employee/<slug>", methods=["POST", "GET"])
+@search_decorator
+def edit_employee(slug):
+    employee = md.Employee.query.filter(md.Employee.slug == slug).first()
+
+    if request.method == "POST":
+        form = EmployeeForm(formdata=request.form, obj=employee)
+        form.populate_obj(employee)
+        db.session.commit()
+
+        return redirect(url_for("employee_detail", slug=employee.slug))
+
+    form = EmployeeForm(obj=employee)
+
+    return render_template("edit_employee.html", form=form, employee=employee)
 
 
 @app.route("/add_employee/<slug>", methods=["POST", "GET"])
