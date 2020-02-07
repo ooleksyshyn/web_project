@@ -17,9 +17,14 @@ before_install:
   - mysql testdb < mysql/main_db_bootstrap.sql
 
 before_script:
- - export FLASK_APP="$TRAVIS_BUILD_DIR/RESTful"
- - export FLASK_DEBUG=1
+  - python -m RESTful & APP_PID=$!
 
 
 script:
   - python -m unittest discover tests/
+
+notifications:
+  email: false
+
+after_script:
+  - KILL $APP_PID
