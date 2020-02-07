@@ -1,6 +1,12 @@
-import unittest
-from src.app import db
+from src.app import db, app
 from src.models import Department, Employee
+from RESTful.restful import api
+
+import unittest
+import requests
+
+
+# app.run(debug=True)
 
 
 class DataBaseTest(unittest.TestCase):
@@ -95,6 +101,14 @@ class DataBaseTest(unittest.TestCase):
         rest = Employee.query.filter(Employee.department_id < 0).all()
 
         self.assertEqual(len(rest), 0)
+
+
+class ApiTest(unittest.TestCase):
+    def test_api(self):
+        r = requests.get('http://localhost:5000/')
+
+        self.assertEqual(r.json(), {"Hello": "World"})
+        self.assertEqual(r.status_code, 200)
 
 
 if __name__ == '__main__':
