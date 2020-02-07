@@ -17,7 +17,9 @@ before_install:
   - mysql testdb < mysql/main_db_bootstrap.sql
 
 before_script:
-  - python -m RESTful
+ - export FLASK_APP="$TRAVIS_BUILD_DIR/RESTful"
+ - export FLASK_DEBUG=1
+
 
 script:
   - python -m unittest discover tests/
