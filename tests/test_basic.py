@@ -104,6 +104,10 @@ class DataBaseTest(unittest.TestCase):
 
 
 class ApiTest(unittest.TestCase):
+    def setUp(self):
+        app.run(debug=True)
+        return super().setUp()
+
     def test_api(self):
         r = requests.get('http://localhost:5000/')
 

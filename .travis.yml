@@ -17,4 +17,5 @@ before_install:
   - mysql testdb < mysql/main_db_bootstrap.sql
 
 script:
+  - python RESTful
   - python -m unittest discover tests/
