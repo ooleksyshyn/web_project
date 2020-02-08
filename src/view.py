@@ -83,7 +83,7 @@ def edit_department(slug):
     department = md.Department.query.filter(md.Department.slug == slug).first()
 
     if request.method == "POST":
-        form = DepartmentForm(formdata=request.form, onj=department)
+        form = DepartmentForm(formdata=request.form, obj=department)
         form.populate_obj(department)
 
         db.session.commit()

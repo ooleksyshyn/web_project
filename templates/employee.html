@@ -12,10 +12,16 @@
 {% endblock %}
 
 {% block content_title %}
-{{employee.name}} {{employee.surname}}
 {% endblock %}
 
 
 {% block content %}
-Was born on {{employee.birth_date}}, earns {{employee.salary}}.
+<div class="card" style="width: 100%;">
+  <div class="card-body">
+    <h5 class="card-title">{{employee.name}} {{employee.surname}}</h5>
+    <p class="card-text">Was born on {{employee.birth_date}}</p>
+      <p class="card-text">Salary: {{employee.salary}}.</p>
+    <a href="{{url_for('employees')}}" class="btn btn-primary">OK</a>
+  </div>
+</div>
 {% endblock %}
