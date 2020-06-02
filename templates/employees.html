@@ -1,0 +1,105 @@
+{% extends "index.html" %}
+
+
+{% block extra_references %}
+    {% if not all %}
+        <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('add_employee', slug = dep.slug)}}">
+                Add employees
+                <span class="sr-only">
+                    (current)
+                </span>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{url_for('edit_department', slug = dep.slug)}}">
+                Edit
+                <span class="sr-only">
+                    (current)
+                </span>
+            </a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block content_title %}
+<div class="container">
+    <div class = "department">
+        {% if all %}
+            <h1>
+                Employees of {{dep}}
+            </h1>
+        {% else %}
+            <h1>
+                Employees of {{dep.name}}
+            </h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Department</th>
+          <th scope="col">Salary</th>
+          <th scope="col">Date of birth</th>
+
+        </tr>
+      </thead>
+        <tbody>
+        {% for i in range(len) %}
+            <tr>
+              <th scope="row">{{i + 1}}</th>
+                  <td>
+                      <a href="{{url_for('employee_detail', slug=employees[i][0].slug)}}">
+                          {{employees[i][0].name}}
+                      </a>
+                  </td>
+                  <td>
+                      <a href="{{url_for('employee_detail', slug=employees[i][0].slug)}}">
+                        {{employees[i][0].surname}}
+                      </a>
+                  </td>
+
+              <td>
+                  <a href="{{url_for('department_detail', slug=employees[i][1].slug)}}">
+                      {{employees[i][1].name}}
+                  </a>
+
+              </td>
+              <td>{{employees[i][0].salary}}</td>
+              <td>{{employees[i][0].birth_date}}</td>
+            </tr>
+        {% endfor %}
+  </tbody>
+    </table>
+    <div class="container">
+    {% if not all %}
+        Average salary: {{average_salary}}
+    {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    <p><h3>Search employees by date of birth</h3></p>
+    <div class="col-md-4">
+        <form action="{{url_for('search_employees')}}" method="POST">
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label() }}
+                    {{ field(class='form-control') }}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success">
+                Search
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

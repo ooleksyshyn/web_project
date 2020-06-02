@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Departments</title>
+    <link rel="stylesheet" href="/templates/styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-      <a class="navbar-brand" href="add">Departments </a>
+      <a class="navbar-brand" href="{{url_for('departments')}}">Departments </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -17,21 +18,35 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="kek">Lol <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{url_for('employees')}}">Employees <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="lol">Kek <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{{url_for('create_department')}}">Create new department <span class="sr-only">(current)</span></a>
           </li>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="hello">Cheburek <span class="sr-only">(current)</span></a>
-          </li>
+            {% block extra_references %}
+            {% endblock %}
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline my-2 my-lg-0" method="GET">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search"
+                 aria-label="Search" name="q" value="{{ request.args.get('q', '') }}">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
     </nav>
+
+
+
+{% block content_title %}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+      <h1>
+        Hello world!
+      </h1>
+    </div>
+{% endblock %}
+
 </body>
 </html>
